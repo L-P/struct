@@ -1,4 +1,6 @@
 <?php
+/* Originally written for yks under the MIT license.
+ * See https://github.com/131/yks */
 
 namespace lpeltier;
 
