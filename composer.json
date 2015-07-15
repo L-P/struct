@@ -1,0 +1,24 @@
+{
+    "name": "lpeltier/struct",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Léo Peltier",
+            "email": "contact@leo-peltier.fr",
+            "homepage": "https://leo-peltier.fr",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">= 5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "lpeltier\\": "src/"
+        }
+    }
+}
