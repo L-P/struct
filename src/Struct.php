@@ -2,6 +2,8 @@
 /* Originally written for yks under the MIT license.
  * See https://github.com/131/yks */
 
+declare(strict_types=1);
+
 namespace lpeltier;
 
 /**
@@ -13,7 +15,7 @@ namespace lpeltier;
  *
  * return mixed[]
  */
-function get_class_public_vars($class)
+function get_class_public_vars(string $class)
 {
     return get_class_vars($class);
 }
@@ -28,7 +30,7 @@ function get_class_public_vars($class)
 trait Struct
 {
     /// @param mixed[] $props properties to set, name => value.
-    public function __construct($props = [])
+    public function __construct(array $props = [])
     {
         $publicProps = array_keys(get_class_public_vars(__CLASS__));
 
@@ -41,22 +43,22 @@ trait Struct
         }
     }
 
-    public function __set($name, $value)
+    public function __set(string $name, $value)
     {
         throw new \InvalidArgumentException("Attempted to set unkown property `$name`.");
     }
 
-    public function __isset($name)
+    public function __isset(string $name)
     {
         return false;
     }
 
-    public function __get($name)
+    public function __get(string $name)
     {
         throw new \InvalidArgumentException("Attempted to get unkown property `$name`.");
     }
 
-    public function __unset($name)
+    public function __unset(string $name)
     {
         throw new \InvalidArgumentException("Attempted to unset unkown property `$name`.");
     }
