@@ -1,23 +1,17 @@
-<?php
+<?php declare(strict_types=1);
+
 /* Originally written for yks under the MIT license.
  * See https://github.com/131/yks */
 
-declare(strict_types=1);
-
 namespace lpeltier;
 
-/**
- * Proxy to get_class_vars, this is needed in Struct to obtain a list of
- * _public_ properties. get_class_vars is scope-aware so calling it inside
- * a class would also list protected and private properties.
- *
- * @param string $class
- *
- * return mixed[]
- */
-function get_class_public_vars(string $class)
+/** @return string[] public property names */
+function get_public_properties(object $obj): array
 {
-    return get_class_vars($class);
+    return array_column(
+        (new \ReflectionObject($obj))->getProperties(\ReflectionProperty::IS_PUBLIC),
+        'name'
+    );
 }
 
 /** Ensure that a class can't have 'floating properties'. Any attemp to get or
@@ -32,7 +26,7 @@ trait Struct
     /// @param mixed[] $props properties to set, name => value.
     public function __construct(array $props = [])
     {
-        $publicProps = array_keys(get_class_public_vars(__CLASS__));
+        $publicProps = get_public_properties($this);
 
         foreach ($props as $k => $v) {
             if (in_array($k, $publicProps, true)) {
@@ -48,7 +42,7 @@ trait Struct
         throw new \InvalidArgumentException("Attempted to set unkown property `$name`.");
     }
 
-    public function __isset(string $name)
+    public function __isset(string $name): bool
     {
         return false;
     }
