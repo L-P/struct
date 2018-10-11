@@ -1,5 +1,9 @@
 <?php
 
+namespace lpeltier\test\Struct;
+
+use PHPUnit\Framework\TestCase;
+
 use lpeltier\Struct;
 
 class Foo
@@ -11,7 +15,7 @@ class Foo
     private $private;
 }
 
-class StructTest extends PHPUnit_Framework_TestCase
+class StructTest extends TestCase
 {
     public function testPublicIsReadWritable()
     {
